@@ -1,0 +1,37 @@
+{% extends "helpdesk/base.html" %}{% load i18n %}
+{% block helpdesk_title %}{% trans "Edit followup" %}{% endblock %}
+
+{% block helpdesk_head %}
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("[data-toggle=tooltip]").tooltip();
+    });
+</script>
+{% endblock helpdesk_head %}
+
+{% block helpdesk_body %}
+
+{% include "helpdesk/ticket_desc_table.html" %}
+
+<h3>{% trans "Edit FollowUp" %}</h3>
+    <form action="." method="POST" name="edit_followup_form">
+        {{ form.non_field_errors }}
+        <fieldset>
+        <dl>
+            <dt><label for='id_ticket'>{% trans "Reassign ticket:" %}</label></dt>
+            <dd>{{ form.ticket }}</dd>
+            <dt><label for="id_title">{% trans "Title:" %}</label></dt>
+            <dd>{{ form.title }}</dd>
+            <dt><label for="id_comment">{% trans "Comment:" %}</label></dt>
+            <dd>{{ form.comment }}</dd>
+            <dt><label for="id_public">公开</label></dt>
+            <dd>{{ form.public }}</dd>
+                <p>公共工单对提交者和所有人可见，但是非公开工单仅仅对员工可见</p>
+            <dt><label for="id_new_status">新的状态</label></dt>
+            <dd>{{ form.new_status }}</dd>
+                <p>你想改变成什么状态？</p>
+        </dl>
+        </fieldset>
+        <p><input class="btn btn-primary" type="submit" value="提交"></p>{% csrf_token %}
+    </form>
+{% endblock helpdesk_body %}
